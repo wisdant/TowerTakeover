@@ -4,11 +4,6 @@
 // Time is in milliseconds.
 #define delay(time) pros::delay(time)
 
-/**
- * Runs autonomous code where the robot moves without any driver input.
- * 
- * This mode is activated using a match or field controller.
- */
 void autonomous() {
   // Create a chassis to use for autonomous (this has built in autonomous control)
   // The last two numbers are used to tune turn and move amounts
@@ -17,31 +12,85 @@ void autonomous() {
     AbstractMotor::gearset::green,
     {4_in, 12.6_in});
 
-  chassis.setMaxVelocity(70);
+    //chassis.setMaxVelocity(70);
 
-  // Move forwards 10 inches
-  chassis.moveDistance(10_in);
+    // Pick up and drop Block 0
+    move_claw(127);
+    delay(150);
+    move_claw(25);
 
-  // Close the claw
-  move_claw(127);
-  delay(150);
-  // Apply constant power to hold a cube
-  move_claw(25);
+    move_lift(127);
+    delay(200);
+    move_lift(10);
 
-  // Lift up for 300 milliseconds
-  move_lift(127);
-  delay(300);
-  // Apply constant power to hold the arm up
-  move_lift(10);
+    chassis.moveDistance(20_in);
+
+    move_claw(-127);
+    delay(150);
+
+    chassis.moveDistance(-30_in);
 
 
-  // Turn 90 degrees to the left
-  chassis.turnAngle(90_deg);
+/*
+    //Move to Block 1
+    chassis.moveDistance(-12_in);
+    delay(400);
+    chassis.turnAngle(-90_deg);
+    delay(150);
+    chassis.moveDistance(36_in);
+    delay(150);
+    move_claw(127);
+    delay(150);
+    move_claw(50);
+    delay(150);
 
-  chassis.moveDistance(5_in);
-  
-  
-  /*
-   * Add new autonomous code here (and edit or remove the example above)
-   */
+    //put in goal
+    chassis.moveDistance(-36_in);
+    delay(150);
+    chassis.turnAngle(90_deg);
+    delay(150);
+    chassis.moveDistance(12_in);
+    delay(150);
+    move_claw(-127);
+    delay(150);
+
+    //Block 2 Grab
+    chassis.moveDistance(-3_ft);
+    delay(300);
+    chassis.turnAngle(-90_deg);
+    delay(150);
+    chassis.moveDistance(3_ft);
+    delay(300);
+    move_claw(127);
+    delay(150);
+    move_claw(50);
+
+    //Block 2 put in goal
+    chassis.moveDistance(-3_ft);
+    delay(300);
+    chassis.turnAngle(90_deg);
+    delay(150);
+    chassis.moveDistance(3_ft);
+    delay(300);
+    move_claw(-127);
+    delay(150);
+
+    //Put Block 3 in
+    move_lift(-127); // lower arm
+    move_claw(127); //close claw
+    move_lift(127); // lifts the arm
+    chassis.turnAngle(-90_deg);
+    chassis.moveDistance(5_ft); //move to the pole
+    move_lift(20); //reinforce lifted Arm
+    move_claw(-127); //drops the cube into the tower
+
+    //Angela + Vika
+    move_lift(-127); // lower arm
+    move_claw(127); //close claw
+    move_lift(127); // lifts the arm
+    chassis.turnAngle(-90_deg);
+    chassis.moveDistance(10_ft); //move to the pole
+    move_lift(20); //reinforce lifted Arm
+    move_claw(-127); //drops the cube into the tower
+*/
 }
